@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { GrEdit } from 'react-icons/gr';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-
+import dotenv from 'dotenv';
 import './App.scss';
+
+
+dotenv.config()
 
 const backendUrl = 'http://localhost:3016';
 
