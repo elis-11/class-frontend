@@ -3,7 +3,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Context } from "../context/DataContext";
 
 export const TeacherItem = ({ teacher }) => {
-  const {editTeacher, deleteTeacher}=useContext(Context)
+  const { editTeacher, deleteTeacher } = useContext(Context);
   const inputName = useRef();
   const inputCity = useRef();
 
