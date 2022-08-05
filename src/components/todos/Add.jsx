@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import { Context } from "../context/DataContext";
 
-export const Add = ({ addTodo }) => {
+export const Add = () => {
+  const { addTodo } = useContext(Context)
   const [newTodo, setNewTodo] = useState({
     title: "",
     description: "",

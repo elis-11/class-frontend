@@ -179,7 +179,7 @@ export const DataContext = (props) => {
       headers: { "Content-Type": "application/json" },
     });
     const todoNewApi = await response.json();
-    setTodos([...todos, ...todoNewApi]);
+    setTodos([...todos, todoNewApi]);
   };
 
   // update todo at API
