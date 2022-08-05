@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Context } from "../context/DataContext";
 
-export const Item = ({ todo, editTodo, deleteTodo}) => {
+export const Item = ({ todo }) => {
+  const {editTodo, deleteTodo} = useContext(Context)
   const inputTitle = useRef();
   const inputDescription = useRef();
 

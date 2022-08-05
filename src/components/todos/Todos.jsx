@@ -11,13 +11,6 @@ export const Todos = () => {
   const {todos, setTodos} = useContext(Context)
   const [search, setSearch] = useState("");
 
-  const addTodo = (todoNew) => {
-    const todoNewState = {
-      _id: Date.now().toString(),
-      ...todoNew,
-    };
-    setTodos([...todos, todoNewState]);
-  };
 
   const editTodo = (id, todoData) => {
     const updateTodo = todos.map((todo) =>
@@ -45,7 +38,7 @@ export const Todos = () => {
       </h2>
       <div className="container">
         <Search search={search} setSearch={setSearch} />
-        <Add addTodo={addTodo} />
+        <Add />
         <List
           todos={filteredTodos}
           editTodo={editTodo}

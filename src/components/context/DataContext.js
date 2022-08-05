@@ -58,7 +58,7 @@ export const DataContext = (props) => {
 
     setUsers([...users, userNewApi]);
   };
-   // update user at API
+  // update user at API
   const editUser = async (id, userData) => {
     await fetch(`${API_URL}/users/${id}`, {
       method: "PATCH",
@@ -73,7 +73,7 @@ export const DataContext = (props) => {
     setUsers(updateUser);
   };
 
-    // Delete User at API
+  // Delete User at API
   const deleteUser = async (id) => {
     await fetch(`${API_URL}/users/${id}`, {
       method: "DELETE",
@@ -170,6 +170,42 @@ export const DataContext = (props) => {
     setStudents(deleteItem);
   };
 
+  //! Todos
+  // Create new Todo
+  const addTodo = async (todoNew) => {
+    const response = await fetch(`${API_URL}/todos`, {
+      method: "POST",
+      body: JSON.stringify(todoNew),
+      headers: { "Content-Type": "application/json" },
+    });
+    const todoNewApi = await response.json();
+    setTodos([...todos, ...todoNewApi]);
+  };
+
+  // update todo at API
+  const editTodo = async (id, todoData) => {
+    await fetch(`${API_URL}/todos/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(todoData),
+      headers: { "Content-Type": "application/json" },
+    });
+    // update todo in FRONTEND STATE
+    const updateTodo = todos.map((todo) =>
+      todo._id === id ? { ...todo, ...todoData } : todo
+    );
+    setTodos(updateTodo);
+  };
+
+  // DELETE todo at API
+  const deleteTodo = async (id)=>{
+    await fetch(`${API_URL}/todos/${id}`, {
+      method: 'DELETE',
+    })
+    // delete also in frontend state
+    const deleteTodo=todos.filter(todo=>todo._id !== id)
+    setTodos(deleteTodo);
+  }
+
   const sharedData = {
     users,
     setUsers,
@@ -188,6 +224,9 @@ export const DataContext = (props) => {
     addStudent,
     editStudent,
     deleteStudent,
+    addTodo,
+    editTodo,
+    deleteTodo,
   };
 
   // rendering component
