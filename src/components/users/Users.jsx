@@ -10,14 +10,6 @@ export const Users = () => {
   const { users, setUsers } = useContext(Context);
   const [search, setSearch] = useState("");
 
-  //Add
-  const addUser = (userNew) => {
-    const userNewState = {
-      _id: Date.now().toString(),
-      ...userNew,
-    };
-    setUsers([...users, userNewState]);
-  };
 
   //Edit
   const editUser = (id, userData) => {
@@ -47,7 +39,7 @@ export const Users = () => {
       <Header length={filteredStudents.length} />
       <div className="container">
         <Search search={search} setSearch={setSearch} />
-        <AddForm addUser={addUser} />
+        <AddForm />
         {users.length ? (
           <UsersList
             users={filteredStudents}

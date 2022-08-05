@@ -10,7 +10,7 @@ export const Search = ({ search, setSearch }) => {
         }}
       >
         <input
-          id="sarch"
+          id="search"
           type="text"
           role="search"
           placeholder="Search"

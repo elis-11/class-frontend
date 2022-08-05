@@ -1,23 +1,23 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Context } from "../context/DataContext";
 
-export const UserItem = ({ user, handleDelete, editUser }) => {
+export const UserItem = ({ user }) => {
+  const { editUser, deleteUser } = useContext(Context);
   const inputName = useRef();
   const inputHobby = useRef();
   const inputCity = useRef();
 
   const [editMode, setEditMode] = useState(false);
-  
+
   const onKeyDown = (e) => {
-
     if (e.key === "Enter") {
-
       const nameNew = inputName.current.value;
       const hobbyNew = inputHobby.current.value;
       const cityNew = inputCity.current.value;
 
       // toggle edit mode
-      setEditMode( false ); // disable EDIT mode => set it to false
+      setEditMode(false); // disable EDIT mode => set it to false
       editUser(user._id, { name: nameNew, hobby: hobbyNew, city: cityNew });
     }
   };
@@ -60,10 +60,9 @@ export const UserItem = ({ user, handleDelete, editUser }) => {
           className="icon"
           role="button"
           tabIndex="0"
-          onClick={() => handleDelete(user._id)}
+          onClick={() => deleteUser(user._id)}
         />
       </div>
-      
     </div>
   );
 };

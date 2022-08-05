@@ -22,7 +22,6 @@ export const DataContext = (props) => {
       console.log(teachersApi);
       setTeachers(teachersApi); // fill teachers into state and update DOM
 
-      // TODO: LOAD STUDENTS...
       //load STUDENTS
       response = await fetch(`${API_URL}/students`);
       const studentsApi = await response.json();
@@ -43,11 +42,53 @@ export const DataContext = (props) => {
   const [students, setStudents] = useState(studentsData);
   const [todos, setTodos] = useState(todosData);
 
+  //! Users
+  const addUser = async (userNew) => {
+    console.log(userNew);
+    // make POST request at API to CREATE new Item and RETURN new item with created ID!
+    const response = await fetch(`${API_URL}/users`, {
+      method: "POST",
+      body: JSON.stringify(userNew), // SEND data to create in API => API will create the ID for us!
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const userNewApi = await response.json();
+    console.log(userNewApi);
+
+    setUsers([...users, userNewApi]);
+  };
+   // update user at API
+  const editUser = async (id, userData) => {
+    await fetch(`${API_URL}/users/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(userData),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    // update User in FRONTEND STATE
+    const updateUser = users.map((user) =>
+      user._id === id ? { ...user, ...userData } : user
+    );
+    setUsers(updateUser);
+  };
+
+    // Delete User at API
+  const deleteUser = async (id) => {
+    await fetch(`${API_URL}/users/${id}`, {
+      method: "DELETE",
+    });
+
+    // delete user in FRONTEND STATE
+    const deleteUser = users.filter((user) => user._id !== id);
+    setUsers(deleteUser);
+  };
+
+  //! Teachers
   // 1. add data to API first !
   // 2. if successful => also add item to STATE (=> frontend data)
   const addTeacher = async (teacherNew) => {
     console.log(teacherNew);
-
     // make POST request at API to CREATE new Item and RETURN new item with created ID!
     const response = await fetch(`${API_URL}/teachers`, {
       method: "POST",
@@ -90,7 +131,7 @@ export const DataContext = (props) => {
     const deleteTeacher = teachers.filter((teacher) => teacher._id !== id);
     setTeachers(deleteTeacher);
   };
-//! Students
+  //! Students
   const addStudent = async (studentNew) => {
     console.log(studentNew);
 
@@ -119,7 +160,7 @@ export const DataContext = (props) => {
     );
     setStudents(updateStudent);
   };
-  
+
   const deleteStudent = async (id) => {
     await fetch(`${API_URL}/students/${id}`, {
       method: "DELETE",
@@ -138,6 +179,9 @@ export const DataContext = (props) => {
     setStudents,
     todos,
     setTodos,
+    addUser,
+    editUser,
+    deleteUser,
     addTeacher,
     editTeacher,
     deleteTeacher,

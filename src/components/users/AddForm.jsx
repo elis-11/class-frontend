@@ -1,6 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import { Context } from '../context/DataContext';
 
-export const AddForm = ({ addUser }) => {
+export const AddForm = () => {
+  const { addUser } = useContext(Context)
   const [newUser, setNewUser] = useState({
     name: "",
     hobby: "",
